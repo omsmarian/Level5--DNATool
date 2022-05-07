@@ -2,74 +2,32 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include "utilidades.h"
 
 
 using namespace std;
 
 int main()
 {
-	string namefile1 = "Mystery genome 1 - OV806939";
-	string namefile2 = "Mystery genome 2 - MT345875";
 
-	/*getline(cin,namefile1);
-	getline(cin,namefile2);*/
+	cout << "INGRESE NOMBRE DE LOS ARCHIVOS A COMPARAR SIN .txt" << endl;
+	string namefile1;
+	string namefile2;
 
-	cout << endl << namefile1 <<  ", " << namefile2 << endl;
+	cout << "FILE 1: ";
 
-	ifstream genome1("../../../resources/test/" + namefile1 + ".txt", ios::in);
-	ifstream genome2("../../../resources/test/" + namefile2 + ".txt", ios::in);
+	getline(cin,namefile1);
 
+	cout << "FILE 2: ";
 
-	if (genome1.is_open())
-	{
-		cout << "genome 1 abierto uwu" << endl;
-	}
+	getline(cin,namefile2);
 
-	if (genome2.is_open())
-	{
-		cout << "genome 2 abierto owo" << endl;
-	}
+	string genome1 = extraccion(namefile1);
+	string genome2 = extraccion(namefile2);
 
-	string word;
-	string ADN;
-	char letter;
-	bool originFound = false;
-	bool endFound = false;
+	cout << genome1 << endl;
 
-	while ((!originFound)&&(genome1 >> word))
-	{
-		//if (word == "//")
-			//endFound = true;
-
-		//else if (originFound)
-		//{
-		//	if (!((word[0] < '9') && (word[0] > '0')))
-		//	{
-		//		for (int i = 0; i < word.size(); i++)
-		//		{
-		//			if (word[i] != 'a' || word[i] != 't' || word[i] != 'c' || word[i] != 'g')
-		//				word.erase(word[i]);
-		//		}
-		//		ADN += word;
-		//	}
-				
-		//}
-
-		if (word == "ORIGIN")
-			originFound = true;
-	}
-
-	while ((!endFound)&&(genome1 >> letter))
-	{
-		if ((letter == 'a') || (letter == 'c') || (letter == 'g') || (letter == 't'))
-			cout << letter;
-		else if (letter == '/')
-			endFound = true;
-	}
-
-
-
-	cout << ADN << endl;
+	cout << genome2 << endl;
 
 	return 0;
 }

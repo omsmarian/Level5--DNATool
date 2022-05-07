@@ -15,7 +15,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     add_link_options(-fsanitize=undefined)
 endif()
 
-add_executable(main main.cpp)
+add_executable(main main.cpp "utilidades.h" "utilidades.cpp")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # From "Working with CMake" documentation:
@@ -27,6 +27,6 @@ endif()
 # Test
 enable_testing()
 
-add_executable(main_test main_test.cpp)
+add_executable(main_test main_test.cpp "utilidades.h" "utilidades.cpp")
 
 add_test(NAME test1 COMMAND main_test)
