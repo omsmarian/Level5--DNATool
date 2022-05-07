@@ -17,13 +17,6 @@ endif()
 
 add_executable(main main.cpp)
 
-# Copy resources folder to build folder
-if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_BINARY_DIR})
-elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE_INIT})
-endif()
-
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # From "Working with CMake" documentation:
     target_link_libraries(main PRIVATE "-framework IOKit" "-framework Cocoa" "-framework OpenGL")
