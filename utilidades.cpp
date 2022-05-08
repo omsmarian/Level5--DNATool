@@ -3,6 +3,13 @@
 string extraccion(string namefile)
 {
 	ifstream file("../../../resources/test/" + namefile + ".txt", ios::in);
+
+	if (file.is_open())
+		cout << namefile + ".txt abierto" << endl;
+	else
+		cout << namefile + ".txt no existe" << endl;
+
+
 	string word;
 	string ADN;
 	char letter;
@@ -23,5 +30,6 @@ string extraccion(string namefile)
 			endFound = true;
 	}
 
+	ADN.insert(0," ");
 	return ADN;
 }
