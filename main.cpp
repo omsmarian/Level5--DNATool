@@ -28,21 +28,18 @@ int main()
 
 	vector<string> direcciones;
 
-	vector<int> matriz(genome1.size() * genome2.size());
-	for (int i = 0; i < genome2.size(); i++)
-	{
-		matriz[i] = -i;
-		matriz[i * genome1.size()] = -i;
-	}
+	vector<int> matriz(genome1.size() * genome2.size());				//genome1 horizontal, genome2 vertical
 
 	int diagonalVal, arribaVal, izqVal;
 	for (int j = 1; j < genome2.size(); j++)
 	{
+		matriz[j * genome1.size()] = -j;
 		for (int i = 1; i < genome1.size(); i++)
 		{
-			arribaVal = matriz[i + (j -1) * genome1.size()] -1;
+			matriz[i] = -i;
+			arribaVal = matriz[i + (j - 1) * genome1.size()] - 1;
 
-			izqVal = matriz[i + j * genome1.size() - 1] -1;
+			izqVal = matriz[i + j * genome1.size() - 1] - 1;
 
 			diagonalVal = (matriz[i - 1 + (j - 1) * genome1.size()]);
 			if (genome1[i] == genome2[j])
@@ -53,12 +50,12 @@ int main()
 			if (arribaVal >= izqVal && arribaVal >= diagonalVal)
 			{
 				matriz[i + j * genome1.size()] = arribaVal;
-				direcciones.push_back("abajo");
+				direcciones.push_back("arriba");
 			}
 			else if (izqVal >= arribaVal && izqVal >= diagonalVal)
 			{
 				matriz[i + j * genome1.size()] = izqVal;
-				direcciones.push_back("derecha");
+				direcciones.push_back("izq");
 			}
 			else
 			{
@@ -67,7 +64,9 @@ int main()
 			}
 		}
 	}
-	
+
+	bool matchCaracter = false;
+
 
 	cout << "matriz:" << endl;
 	int i = 0;
@@ -81,10 +80,18 @@ int main()
 			i = 0;
 		}
 	}
-
-	cout << "direcciones" << endl;
+	int x = 1;
+	cout << "direcciones: " << endl;
 	for (auto i : direcciones)
+	{
+		x++;
 		cout << i << ",";
+		if (x == genome1.size())
+		{
+			cout << endl;
+			x = 1;
+		}
+	}
 	cout << endl;
 
 	return 0;
