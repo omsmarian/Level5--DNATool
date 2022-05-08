@@ -26,12 +26,7 @@ int main()
 	string genome1 = extraccion(namefile1);
 	string genome2 = extraccion(namefile2);
 
-	vector<int> valores1(genome1.size());
-	for (int i = 0; i < valores1.size(); i++)
-		valores1[i] = -i;
-	vector<int> valores2(genome2.size());
-	for (int i = 0; i < valores2.size(); i++)
-		valores2[i] = -i;
+	vector<string> direcciones;
 
 	vector<int> matriz(genome1.size() * genome2.size());
 	for (int i = 0; i < genome2.size(); i++)
@@ -46,27 +41,33 @@ int main()
 		for (int i = 1; i < genome1.size(); i++)
 		{
 			arribaVal = matriz[i + (j -1) * genome1.size()] -1;
-			cout << "arriba = " << arribaVal << endl;
+
 			izqVal = matriz[i + j * genome1.size() - 1] -1;
-			cout << "izq = " << izqVal << endl;
+
 			diagonalVal = (matriz[i - 1 + (j - 1) * genome1.size()]);
 			if (genome1[i] == genome2[j])
 				diagonalVal++;
 			else
 				diagonalVal--;
-			cout << "diagonal = " << diagonalVal << endl;
+
 			if (arribaVal >= izqVal && arribaVal >= diagonalVal)
+			{
 				matriz[i + j * genome1.size()] = arribaVal;
+				direcciones.push_back("abajo");
+			}
 			else if (izqVal >= arribaVal && izqVal >= diagonalVal)
+			{
 				matriz[i + j * genome1.size()] = izqVal;
+				direcciones.push_back("derecha");
+			}
 			else
+			{
 				matriz[i + j * genome1.size()] = diagonalVal;
-			cout << "[" << j << "]" << "[" << i << "] = " << matriz[i + j * genome1.size()] << endl;
-
-
+				direcciones.push_back("diagonal");
+			}
 		}
 	}
-
+	
 
 	cout << "matriz:" << endl;
 	int i = 0;
@@ -80,6 +81,11 @@ int main()
 			i = 0;
 		}
 	}
+
+	cout << "direcciones" << endl;
+	for (auto i : direcciones)
+		cout << i << ",";
+	cout << endl;
 
 	return 0;
 }
