@@ -2,13 +2,14 @@
 
 string extraccion(string namefile)
 {
-	ifstream file("../../../resources/test/" + namefile + ".txt", ios::in);
+	/*ifstream file("../../../resources/test/" + namefile + ".txt", ios::in);
 
 	if (file.is_open())
 		cout << namefile + ".txt abierto" << endl;
 	else
-		cout << namefile + ".txt no existe" << endl;
+		cout << namefile + ".txt no existe" << endl;*/
 
+	ifstream file(namefile);
 
 	string word;
 	string ADN;

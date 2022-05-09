@@ -1,0 +1,32 @@
+RESULTADOS: Aqui se enumera la puntuacion de cada Mystery genome, comparado contra cada
+genoma de variantes de covid. Se indica cual es el de mayor similitud (puntaje mas alto).
+Se indica ademas que archivo es el correspondiente a la mayor similitud.
+Ademas, en la carpeta se incluyen todas las alineaciones de cada Mystery genome contra cada
+genoma de variantes de covid.
+
+Mystery 1, score de similitud contra:
+*alpha:	29730
+*beta:	29771
+*gamma:	29727
+*delta:	29826		<-- MAYOR SIMILITUD (archivo Mystery1_delta.txt)
+*omicron BA1:29696
+*omicron BA2:29701
+*wuhan:	29789 
+
+Mystery 2, score de similitud contra:
+*alpha:	29822
+*beta:	29865
+*gamma:	29821
+*delta:	29807
+*omicron BA1:29774
+*omicron BA2:29777
+*wuhan:	29885		<-- MAYOR SIMILITUD (archivo Mystery2_wuhan.txt)
+
+Mystery 3, score de similitud contra:
+*alpha:	29745
+*beta:	29786
+*gamma:	29742
+*delta:	29840		<-- MAYOR SIMILITUD (archivo Mystery3_delta.txt)
+*omicron BA1:29711
+*omicron BA2:29716
+*wuhan:	 29804

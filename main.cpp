@@ -6,12 +6,10 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-
-	cout << "INGRESE NOMBRE DE LOS ARCHIVOS A COMPARAR SIN .txt" << endl;
-	string namefile1;
-	string namefile2;
+	/*string namefile1 = argv[1];
+	string namefile2 = argv[2];
 
 	cout << "FILE 1: ";
 
@@ -19,28 +17,19 @@ int main()
 
 	cout << "FILE 2: ";
 
-	getline(cin, namefile2);
+	getline(cin, namefile2);*/
 
-	string genome1 = extraccion(namefile1);
-	string genome2 = extraccion(namefile2);
+	string genome1 = extraccion(argv[1]);
+	string genome2 = extraccion(argv[2]);
 
 	vector<uint8_t> direcciones;											// arriba = 0, izq = 1, diagonal = 3
 
 	vector<int> matriz(genome1.size() * genome2.size());				//genome1 horizontal, genome2 vertical
 
-	string barra = "[                    ]";
 	int i = 1;
 	int diagonalVal, arribaVal, izqVal;
 	for (int j = 1; j < genome2.size(); j++)
 	{
-		if (!(j % ((genome2.size() / 20) != 0 ? (genome2.size() / 20) : 1)))
-		{
-			system("CLS");
-			cout << endl << "CALCULANDO: ";
-			barra[i] = (char)219;
-			i++;
-			cout << barra;
-		}
 		matriz[j * genome1.size()] = -j;
 		for (int i = 1; i < genome1.size(); i++)
 		{
@@ -72,7 +61,7 @@ int main()
 			}
 		}
 	}
-	system("CLS");
+
 	cout << endl;
 	
 	int score = matriz.back();
@@ -80,19 +69,19 @@ int main()
 	forward_list<int> escritura = writtingGuide(&matriz, &direcciones,
 		genome2.size(), genome1.size());				// match = 0, mismatch = 1, gap arriba = 3, gap izquierda = 4
 
-
-
-
-	ofstream file("../../../aligment.txt", ios::out);
+	/*ofstream file("../../../aligment.txt", ios::out);
 	if (file.is_open())
 		cout << "archivo creado exitosamente" << endl;
 	else
-		cout << "ocurrio un error" << endl;
+		cout << "ocurrio un error" << endl;*/
 
-	file << "Alineación entre:" << namefile1 << endl <<
-		" y " << namefile2 << endl;
-	
-	file << endl << "score = " << score << endl << endl;
+
+	//header del archivo txt de salida
+	cout << "------------------------------------------------------------" << endl;
+	cout << "ALIGNED SEQUENCES FOR: " << argv[1]  <<
+		"  | " << argv[2] << endl;
+	cout << endl << "SCORE = " << score << endl;
+	cout << "------------------------------------------------------------" << endl << endl;
 
 	string lineaDelMedio;
 	genome1.erase(0, 1);
@@ -119,12 +108,12 @@ int main()
 
 	for (int a = 0; a <= (index / 60); a++)
 	{
-		file << genome1.substr(a * 60, 60);
-		file << endl;
-		file << lineaDelMedio.substr(a * 60, 60);
-		file << endl;
-		file << genome2.substr(a * 60, 60);
-		file << endl << endl;
+		cout << genome1.substr(a * 60, 60);
+		cout << endl;
+		cout << lineaDelMedio.substr(a * 60, 60);
+		cout << endl;
+		cout << genome2.substr(a * 60, 60);
+		cout << endl << endl;
 	}
 
 	return 0;
