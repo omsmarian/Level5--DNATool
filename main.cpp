@@ -101,12 +101,21 @@ int main()
 		index++;
 	}
 
+	int maxLenght = (genome1.length()>genome2.length()? genome1.length() : genome2.length())/60;
+	
+	for (int a = 0; a <= maxLenght; a++)
+	{
+		file << genome1.substr(a*60, 60);
+		file << endl;
+		file << lineaDelMedio.substr(a*60, 60);
+		file << endl;
+		file << genome2.substr(a*60, 60);
+		file << endl << endl;
+	}
 
-	file << genome1;
-	file << endl;
-	file << lineaDelMedio;
-	file << endl;
-	file << genome2;
+		
+		
+	
 
 	return 0;
 }
