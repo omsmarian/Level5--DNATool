@@ -1,8 +1,8 @@
-#include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
+#include <forward_list>
 #include "utilidades.h"
 
 
@@ -26,7 +26,7 @@ int main()
 	string genome1 = extraccion(namefile1);
 	string genome2 = extraccion(namefile2);
 
-	vector<string> direcciones;
+	vector<int> direcciones;											// arriba = 0, izq = 1, diagonal = 3
 
 	vector<int> matriz(genome1.size() * genome2.size());				//genome1 horizontal, genome2 vertical
 
@@ -50,49 +50,106 @@ int main()
 			if (arribaVal >= izqVal && arribaVal >= diagonalVal)
 			{
 				matriz[i + j * genome1.size()] = arribaVal;
-				direcciones.push_back("arriba");
+				direcciones.push_back(0);
 			}
 			else if (izqVal >= arribaVal && izqVal >= diagonalVal)
 			{
 				matriz[i + j * genome1.size()] = izqVal;
-				direcciones.push_back("izq");
+				direcciones.push_back(1);
 			}
 			else
 			{
 				matriz[i + j * genome1.size()] = diagonalVal;
-				direcciones.push_back("diagonal");
+				direcciones.push_back(3);
 			}
 		}
 	}
 
-	bool matchCaracter = false;
-
-
-	cout << "matriz:" << endl;
-	int i = 0;
-	for (int x : matriz)
+	forward_list<int> escritura;				// match = 0, mismatch = 1, gap = 3
+	int score = matriz.back();
+	bool ceroFound = false;
+	int n = direcciones.size() - 1;
+	int nextValue;
+	while (!ceroFound)
 	{
-		cout << x << ",";
-		i++;
-		if (i == genome1.size())
+		if (direcciones[n] == 1)
 		{
-			cout << endl;
-			i = 0;
+			n--;
+			escritura.push_front(3);
+		}
+		else if (direcciones[n] == 0)
+		{
+			n -= genome1.size() - 1;
+			escritura.push_front(3);
+		}
+		else if (direcciones[n] == 3)
+		{
+			int value = n + ((n / (genome1.size() - 1)) + genome1.size() + 1);
+			n -= genome1.size();
+			if (n < 0)
+			{
+				ceroFound = true;
+				nextValue = n + genome1.size() + 1 - ((-n) / (genome1.size() - 1));
+			}
+			else
+				nextValue = n + genome1.size() + 1 + (n / (genome1.size() - 1));
+			if (matriz[value] >= matriz[nextValue])
+				escritura.push_front(0);
+			else if (matriz[value] <= matriz[nextValue])
+				escritura.push_front(1);
 		}
 	}
-	int x = 1;
-	cout << "direcciones: " << endl;
-	for (auto i : direcciones)
+	while (nextValue > 0)
 	{
-		x++;
-		cout << i << ",";
-		if (x == genome1.size())
+		if (nextValue < genome1.size() && nextValue > 0)
 		{
-			cout << endl;
-			x = 1;
+			escritura.push_front(3);
+			nextValue--;
+		}
+
+		for (int j = genome2.size() - 1; j > 0; j--)
+		{
+			if (nextValue == (j* genome1.size()))
+				escritura.push_front(3);
+				
+			nextValue -= genome1.size();
 		}
 	}
-	cout << endl;
+	
+	
+	cout << "score = " << score << endl;
+
+	//cout << "matriz:" << endl;
+	//int i = 0;
+	//for (int x : matriz)
+	//{
+	//	cout << x << ",";
+	//	i++;
+	//	if (i == genome1.size())
+	//	{
+	//		cout << endl;
+	//		i = 0;
+	//	}
+	//}
+	//int x = 1;
+	//cout << "direcciones: " << endl;
+	//for (auto i : direcciones)
+	//{
+	//	x++;
+	//	cout << i << ",";
+	//	if (x == genome1.size())
+	//	{
+	//		cout << endl;
+	//		x = 1;
+	//	}
+	//}
+	//cout << endl;
+
+	//cout << "escritura: " << endl;
+	//for (auto i : escritura)
+	//	cout << i << ",";
+	//cout << endl;
+
 
 	return 0;
 }
