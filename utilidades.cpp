@@ -16,7 +16,7 @@ string extraccion(string namefile)
 	bool originFound = false;
 	bool endFound = false;
 
-	while ((!originFound) && ( file >> word))
+	while ((!originFound) && (file >> word))
 	{
 		if (word == "ORIGIN")
 			originFound = true;
@@ -30,12 +30,13 @@ string extraccion(string namefile)
 			endFound = true;
 	}
 
-	ADN.insert(0," ");
+	ADN.insert(0, " ");
 	return ADN;
 }
 
 
-forward_list<int> writtingGuide(vector<int>* number, vector<int>* directions ,size_t altura , size_t ancho)
+forward_list<int> writtingGuide(vector<int>* number, vector<uint8_t>* directions
+	, size_t altura, size_t ancho)
 {
 												// arriba = 0, izq = 1, diagonal = 3
 	forward_list<int> list;						// match = 0, mismatch = 1, gap arriba = 3, gap izquierda = 4
@@ -57,7 +58,7 @@ forward_list<int> writtingGuide(vector<int>* number, vector<int>* directions ,si
 		}
 		else if (directions->data()[n] == 3)
 		{
-			int value = n + (n /( ancho - 1)) + ancho + 1;
+			int value = n + (n / (ancho - 1)) + ancho + 1;
 			n -= ancho;
 			if (n < 0)
 			{

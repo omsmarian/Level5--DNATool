@@ -24,7 +24,7 @@ int main()
 	string genome1 = extraccion(namefile1);
 	string genome2 = extraccion(namefile2);
 
-	vector<int> direcciones;											// arriba = 0, izq = 1, diagonal = 3
+	vector<uint8_t> direcciones;											// arriba = 0, izq = 1, diagonal = 3
 
 	vector<int> matriz(genome1.size() * genome2.size());				//genome1 horizontal, genome2 vertical
 
@@ -69,6 +69,44 @@ int main()
 		genome2.size(), genome1.size());				// match = 0, mismatch = 1, gap arriba = 3, gap izquierda = 4
 
 	cout << "score = " << score << endl;
+
+
+
+	ofstream file("../../../aligment.txt", ios::out);
+	if (file.is_open())
+		cout << "archivo creado exitosamente" << endl;
+	else
+		cout << "ocurrio un error" << endl;
+
+	string lineaDelMedio;
+	genome1.erase(0, 1);
+	genome2.erase(0, 1);
+	int index = 0;
+	for (auto i : escritura)
+	{
+		if (i == 0)
+			lineaDelMedio += "|";
+		if (i == 1)
+			lineaDelMedio += "*";
+		if (i == 3)
+		{
+			genome2.insert(index, "-");
+			lineaDelMedio += " ";
+		}
+		if (i == 4)
+		{
+			genome1.insert(index, "-");
+			lineaDelMedio += " ";
+		}
+		index++;
+	}
+
+
+	file << genome1;
+	file << endl;
+	file << lineaDelMedio;
+	file << endl;
+	file << genome2;
 
 	return 0;
 }

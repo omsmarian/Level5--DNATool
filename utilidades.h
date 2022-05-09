@@ -10,7 +10,8 @@
 using namespace std;
 
 string extraccion(string namefile);
-forward_list<int> writtingGuide(vector<int>* number, vector<int>* directions, size_t altura, size_t ancho);
+forward_list<int> writtingGuide(vector<int>* number, vector<uint8_t>* directions,
+	size_t altura, size_t ancho);
 
 
 
