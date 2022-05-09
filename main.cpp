@@ -28,9 +28,19 @@ int main()
 
 	vector<int> matriz(genome1.size() * genome2.size());				//genome1 horizontal, genome2 vertical
 
+	string barra = "[                    ]";
+	int i = 1;
 	int diagonalVal, arribaVal, izqVal;
 	for (int j = 1; j < genome2.size(); j++)
 	{
+		if (!(j % ((genome2.size() / 20) != 0 ? (genome2.size() / 20) : 1)))
+		{
+			system("CLS");
+			cout << endl << "CALCULANDO: ";
+			barra[i] = (char)219;
+			i++;
+			cout << barra;
+		}
 		matriz[j * genome1.size()] = -j;
 		for (int i = 1; i < genome1.size(); i++)
 		{
@@ -62,13 +72,14 @@ int main()
 			}
 		}
 	}
-
+	system("CLS");
+	cout << endl;
+	
 	int score = matriz.back();
 
 	forward_list<int> escritura = writtingGuide(&matriz, &direcciones,
 		genome2.size(), genome1.size());				// match = 0, mismatch = 1, gap arriba = 3, gap izquierda = 4
 
-	cout << "score = " << score << endl;
 
 
 
@@ -77,6 +88,11 @@ int main()
 		cout << "archivo creado exitosamente" << endl;
 	else
 		cout << "ocurrio un error" << endl;
+
+	file << "Alineación entre:" << namefile1 << endl <<
+		" y " << namefile2 << endl;
+	
+	file << endl << "score = " << score << endl << endl;
 
 	string lineaDelMedio;
 	genome1.erase(0, 1);
@@ -90,32 +106,26 @@ int main()
 			lineaDelMedio += "*";
 		if (i == 3)
 		{
-			genome2.insert(index, "-");
+			genome1.insert(index, "-");
 			lineaDelMedio += " ";
 		}
 		if (i == 4)
 		{
-			genome1.insert(index, "-");
+			genome2.insert(index, "-");
 			lineaDelMedio += " ";
 		}
 		index++;
 	}
 
-	int maxLenght = (genome1.length()>genome2.length()? genome1.length() : genome2.length())/60;
-	
-	for (int a = 0; a <= maxLenght; a++)
+	for (int a = 0; a <= (index / 60); a++)
 	{
-		file << genome1.substr(a*60, 60);
+		file << genome1.substr(a * 60, 60);
 		file << endl;
-		file << lineaDelMedio.substr(a*60, 60);
+		file << lineaDelMedio.substr(a * 60, 60);
 		file << endl;
-		file << genome2.substr(a*60, 60);
+		file << genome2.substr(a * 60, 60);
 		file << endl << endl;
 	}
-
-		
-		
-	
 
 	return 0;
 }
