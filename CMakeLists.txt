@@ -15,18 +15,18 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     add_link_options(-fsanitize=undefined)
 endif()
 
-add_executable(main main.cpp "utilidades.h" "utilidades.cpp")
+add_executable(dnatool main.cpp "utility.cpp")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # From "Working with CMake" documentation:
-    target_link_libraries(main PRIVATE "-framework IOKit" "-framework Cocoa" "-framework OpenGL")
+    target_link_libraries(dnatool PRIVATE "-framework IOKit" "-framework Cocoa" "-framework OpenGL")
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    target_link_libraries(main PRIVATE m ${CMAKE_DL_LIBS} pthread GL rt X11)
+    target_link_libraries(dnatool PRIVATE m ${CMAKE_DL_LIBS} pthread GL rt X11)
 endif()
 
-# Test
-enable_testing()
-
-add_executable(main_test main_test.cpp "utilidades.h" "utilidades.cpp")
-
-add_test(NAME test1 COMMAND main_test)
+# Copy resources folder to build folder
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_BINARY_DIR})
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE_INIT})
+endif()
