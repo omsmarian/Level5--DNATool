@@ -46,8 +46,8 @@ string extraccion(string namefile)
 * @brief Goes through the Needleman-Wunsch matrix
 * and directrions matrix, to create an optimal path
 * 
- * @param pointer to Needlan-Wunsch matrix (vector<int>)
- * @param pointer to directions matrix (vector<uint8_t>)
+ * @param pointer to Needlan-Wunsch matrix (vector<int>*)
+ * @param pointer to directions matrix (vector<uint8_t>*)
  * @param height of Needlan-Wunsch matrix (int)
  * @param width of Needlan-Wunsch matrix (int)
  * 
