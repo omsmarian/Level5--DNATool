@@ -27,8 +27,8 @@ int main(int argc, char* argv[])
 	int diagonalVal, upVal, leftVal;
 
 	/*
-	* La complejidad del algoritmo de Needleman-Wunsch es de n*m,
-	* n y m siendo el largo de los strings
+	* Needleman-Wunsch algorithm complexity is M*N,
+	* M and N being the lenght of the strings
 	*/
 
 	for (int j = 1; j < genome2.size(); j++)
